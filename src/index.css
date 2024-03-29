@@ -1,0 +1,47 @@
+.hide-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scroll-bar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-bottom-color: #4f46e5;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.rounded-bottom-border::after {
+    content: "";
+    display: block;
+    /* margin-right: 10px; */
+    min-width: 100%;
+    height: 5px;
+    border-radius: 60px;
+    margin-top: 4px;
+    background-color: #6d28d9;
+}
+
+.rounded-left-border::before {
+    content: "";
+    display: inline-block;
+    margin-right: 9px;
+    width: 2px;
+    height: 17px;
+    border-radius: 60px;
+    background-color: #60a5fa;
+}
