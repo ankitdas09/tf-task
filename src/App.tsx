@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import PLogs from "./pages/logs";
+import PMetrics from "./pages/metrics";
 import CNavBar from "./components/navbar";
-import CTerminal from "./components/terminal";
+import { useState } from "react";
 
 function App() {
     const [lastFetchedTime, setLastFetchedTime] = useState(new Date().getTime()); //timestamp
+    const [timeDelta, setTimeDelta] = useState(5); //mins
 
     return (
         <div className="container mx-auto px-2">
-            <CNavBar />
-            
-            <p className="text-sm">Showing logs for 09/08/2023 10:10</p>
-            {lastFetchedTime}
-
-            <CTerminal lastFetchedTime={lastFetchedTime} setLastFetchedTime={setLastFetchedTime}/>        
+            <BrowserRouter>
+                <CNavBar lastFetchedTime={lastFetchedTime} setLastFetchedTime={setLastFetchedTime} timeDelta={timeDelta} setTimeDelta={setTimeDelta}/>
+                <Routes>
+                    <Route path="/logs" element={<PLogs />} />
+                    <Route path="/metrics" element={<PMetrics lastFetchedTime={lastFetchedTime} timeDelta={timeDelta}/>} />
+                </Routes>
+            </BrowserRouter>
         </div>
     );
 }

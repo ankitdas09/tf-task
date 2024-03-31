@@ -127,8 +127,8 @@ const CTerminal = (props: Props) => {
                 onScroll={handleScroll}
             >
                 <div>
-                    {logs && logs.map((log, idx) => <CLog log={log} index={idx} />)}
-                    {liveLogs && liveLogs.map((log, idx) => <CLog log={log} index={idx} />)}
+                    {logs && logs.map((log, idx) => <CLog log={log} index={idx} key={idx}/>)}
+                    {liveLogs && liveLogs.map((log, idx) => <CLog log={log} index={idx} key={idx}/>)}
                     <span ref={scrollRef}></span>
                 </div>
             </div>

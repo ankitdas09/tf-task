@@ -139,9 +139,19 @@ const populateDataValues = (startTs, endTs, stepSize, min = 0, max = 100) => {
     }
     return dataValues;
 };
+export type Response = {
+    name: string,
+    graphLines: {
+        name: string,
+        values: {
+            timestamp: number,
+            value: number
+        }[]
+    }[]
+}
 
 export class MimicMetrics {
-    static fetchMetrics({ startTs, endTs }) {
+    static fetchMetrics({ startTs, endTs }) : Promise<Response[]> {
         const stepSize = getStepSize(startTs, endTs);
         const normalisedStartTs = normaliseTime(startTs, stepSize);
         const normalisedEndTs = normaliseTime(endTs, stepSize);
