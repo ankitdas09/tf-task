@@ -36,8 +36,7 @@ type Props = {
     setTimeDelta: React.Dispatch<React.SetStateAction<number>>;
 };
 function PMetrics(props: Props) {
-
-    // reset 
+    // reset
     // useEffect(() => {
     //     props.setLastFetchedTime(new Date().getTime())
     //     props.setTimeDelta(5)
@@ -145,7 +144,7 @@ function PMetrics(props: Props) {
         fetchMetrics();
     }, [props.timeDelta]);
 
-    const [sDate, eDate] = getFormatedDateTime(props.lastFetchedTime, props.timeDelta)
+    const [sDate, eDate] = getFormatedDateTime(props.lastFetchedTime, props.timeDelta);
 
     return (
         <>
