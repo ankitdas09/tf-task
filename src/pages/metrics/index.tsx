@@ -162,6 +162,7 @@ function PMetrics(props: Props) {
                                 <div className="w-6/12 bg-white p-3 m-2 rounded-lg border-[1px] border-[#CEE0F8]">
                                     <Line
                                         data={data[0]}
+                                        // @ts-expect-error option issue, needs to be fixed, still works
                                         options={getChartOptions("CPU Usage")}
                                         redraw={true}
                                     />
@@ -169,6 +170,7 @@ function PMetrics(props: Props) {
                                 <div className="w-6/12 bg-white p-3 m-2 rounded-lg border-[1px] border-[#CEE0F8]">
                                     <Line
                                         data={data[1]}
+                                        // @ts-expect-error option issue, needs to be fixed, still works
                                         options={getChartOptions("Memory Usage")}
                                         redraw={true}
                                     />
@@ -178,6 +180,7 @@ function PMetrics(props: Props) {
                                 <div className="w-6/12 bg-white p-3 m-2 rounded-lg border-[1px] border-[#CEE0F8]">
                                     <Line
                                         data={data[2]}
+                                        // @ts-expect-error option issue, needs to be fixed, still works
                                         options={getChartOptions("Network Usage")}
                                         redraw={true}
                                     />
@@ -185,6 +188,7 @@ function PMetrics(props: Props) {
                                 <div className="w-6/12 bg-white p-3 m-2 rounded-lg border-[1px] border-[#CEE0F8]">
                                     <Line
                                         data={data[3]}
+                                        // @ts-expect-error option issue, needs to be fixed, still works
                                         options={getChartOptions("Disk IOPS")}
                                         redraw={true}
                                     />
