@@ -8,12 +8,13 @@ export type Log = { timestamp: number; message: string };
 type Props = {
     lastFetchedTime: number;
     setLastFetchedTime: React.Dispatch<React.SetStateAction<number>>;
+    timeDelta: number;
 };
 
 const CTerminal = (props: Props) => {
     const [logs, setLogs] = useState<Log[]>([]);
     const [liveLogs, setLiveLogs] = useState<Log[]>([]);
-    const [timeDelta, setTimeDelta] = useState(5); // mins
+    // const [timeDelta, setTimeDelta] = useState(5); // mins
 
     const [loading, setLoading] = useState(true);
     const [autoScroll, setAutoScroll] = useState(true);
@@ -27,7 +28,7 @@ const CTerminal = (props: Props) => {
 
     async function fetchLogs() {
         const cur = new Date(props.lastFetchedTime).getTime();
-        const mins = timeDelta;
+        const mins = props.timeDelta;
         props.setLastFetchedTime(cur - mins * 60 * 1000);
         const resp = await MimicLogs.fetchPreviousLogs({
             startTs: cur - mins * 60 * 1000,
@@ -43,7 +44,7 @@ const CTerminal = (props: Props) => {
         if (loading) return;
         setLoading(true);
         const cur = new Date(props.lastFetchedTime).getTime();
-        const mins = timeDelta;
+        const mins = props.timeDelta;
         props.setLastFetchedTime(cur - mins * 60 * 1000);
         const resp = await MimicLogs.fetchPreviousLogs({
             startTs: cur - mins * 60 * 1000,
@@ -57,30 +58,16 @@ const CTerminal = (props: Props) => {
     }
 
     useEffect(() => {
-        // if(scrollContainerRef.current){
-        //     const curHt = scrollContainerRef.current.scrollHeight
-        //     const diff = curHt - prevScrollHeight
-        //     console.log(diff)
-        //     setPrevScrollHeight(scrollContainerRef.current.scrollHeight)
-        //     if(scrollContainerRef.current.scrollTop === 0) scrollContainerRef.current.scrollTop += diff
-        //     else scrollContainerRef.current.scrollTop -= diff
-        // }
-        // if (!firstLog) {
         document.getElementById("log-100")?.scrollIntoView();
-        // return;
-        // }
-        // firstLog.scrollIntoView();
     }, [logs]);
 
     useEffect(() => {
+        setLogs([])
+        setLiveLogs([])
         fetchLogs();
-    }, []);
+    }, [props.timeDelta]);
 
     function handleAddLog(e: Log) {
-        // setLogs((prev) => {
-        //     const lastN = prev.slice(-1500);
-        //     return [...lastN, e];
-        // });
         setLiveLogs((prev) => [...prev, e]);
         if (autoScroll) {
             setNewLogs(0);
@@ -100,7 +87,6 @@ const CTerminal = (props: Props) => {
 
     function handleScroll() {
         if (scrollContainerRef.current?.scrollTop == 0) {
-            // setPrevScrollHeight(scrollContainerRef.current.scrollHeight);
             fetchPreviousLogs();
         }
     }

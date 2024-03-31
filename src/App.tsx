@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PLogs from "./pages/logs";
+import PLogs from "./pages/logspage";
 import PMetrics from "./pages/metrics";
 import CNavBar from "./components/navbar";
 import { useState } from "react";
@@ -11,10 +11,30 @@ function App() {
     return (
         <div className="container mx-auto px-2">
             <BrowserRouter>
-                <CNavBar lastFetchedTime={lastFetchedTime} setLastFetchedTime={setLastFetchedTime} timeDelta={timeDelta} setTimeDelta={setTimeDelta}/>
+                <CNavBar
+                    lastFetchedTime={lastFetchedTime}
+                    setLastFetchedTime={setLastFetchedTime}
+                    timeDelta={timeDelta}
+                    setTimeDelta={setTimeDelta}
+                />
                 <Routes>
-                    <Route path="/logs" element={<PLogs />} />
-                    <Route path="/metrics" element={<PMetrics lastFetchedTime={lastFetchedTime} timeDelta={timeDelta}/>} />
+                    <Route
+                        path="/logs"
+                        element={
+                            <PLogs
+                                lastFetchedTime={lastFetchedTime}
+                                setLastFetchedTime={setLastFetchedTime}
+                                timeDelta={timeDelta}
+                                setTimeDelta={setTimeDelta}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/metrics"
+                        element={
+                            <PMetrics lastFetchedTime={lastFetchedTime} timeDelta={timeDelta} />
+                        }
+                    />
                 </Routes>
             </BrowserRouter>
         </div>
