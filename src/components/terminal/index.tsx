@@ -2,6 +2,7 @@ import React from "react";
 import { MimicLogs } from "../../api-mimic.ts";
 import { useEffect, useRef, useState } from "react";
 import CLog from "./components/log";
+import CLogChunk from "./components/log-chunk/index.tsx";
 // import { v4 as uuidv4 } from "uuid";
 export type Log = { timestamp: number; message: string };
 
@@ -12,13 +13,13 @@ type Props = {
 };
 
 const CTerminal = (props: Props) => {
-    const [logs, setLogs] = useState<Log[]>([]);
+    const [logChunks, setLogChunks] = useState<Log[][]>([]);
     const [liveLogs, setLiveLogs] = useState<Log[]>([]);
-    // const [timeDelta, setTimeDelta] = useState(5); // mins
 
     const [loading, setLoading] = useState(true);
     const [autoScroll, setAutoScroll] = useState(true);
     const [newLogs, setNewLogs] = useState(0);
+
     const scrollRef = useRef<HTMLSpanElement>(null);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -35,13 +36,14 @@ const CTerminal = (props: Props) => {
             endTs: cur,
             limit: 50,
         });
-        setLogs([...resp].reverse());
+        setLogChunks([resp].reverse());
         scrollToBottomLog("instant");
         setLoading(false);
     }
 
     async function fetchPreviousLogs() {
         if (loading) return;
+        console.log(typeof logChunks[0][0])
         setLoading(true);
         const cur = new Date(props.lastFetchedTime).getTime();
         const mins = props.timeDelta;
@@ -52,17 +54,17 @@ const CTerminal = (props: Props) => {
             limit: 50,
         });
         const reversed = resp.reverse();
-        setLogs((prev) => [...reversed, ...prev]);
+        setLogChunks((prev) => [reversed, ...prev]);
         props.setLastFetchedTime(cur - mins * 60 * 1000);
         setLoading(false);
     }
 
     useEffect(() => {
-        document.getElementById("log-100")?.scrollIntoView();
-    }, [logs]);
+        document.getElementById(`chunk-1-log-0`)?.scrollIntoView();
+    }, [logChunks]);
 
     useEffect(() => {
-        setLogs([])
+        setLogChunks([])
         setLiveLogs([])
         fetchLogs();
     }, [props.timeDelta]);
@@ -113,8 +115,9 @@ const CTerminal = (props: Props) => {
                 onScroll={handleScroll}
             >
                 <div>
-                    {logs && logs.map((log, idx) => <CLog log={log} index={idx} key={idx}/>)}
-                    {liveLogs && liveLogs.map((log, idx) => <CLog log={log} index={idx} key={idx}/>)}
+                    {/* {logs && logs.map((log, idx) => <CLog log={log} index={idx} key={idx}/>)} */}
+                    {logChunks && logChunks.map((log, idx) => <CLogChunk chunkId={idx} logs={log} key={idx}/>)}
+                    {liveLogs && liveLogs.map((log, idx) => <CLog chunkId={-1} log={log} index={idx} key={idx}/>)}
                     <span ref={scrollRef}></span>
                 </div>
             </div>
