@@ -33,7 +33,7 @@ const CTerminal = (props: Props) => {
         const resp = await MimicLogs.fetchPreviousLogs({
             startTs: cur - mins * 60 * 1000,
             endTs: cur,
-            limit: 100,
+            limit: 50,
         });
         setLogs([...resp].reverse());
         scrollToBottomLog("instant");
@@ -49,7 +49,7 @@ const CTerminal = (props: Props) => {
         const resp = await MimicLogs.fetchPreviousLogs({
             startTs: cur - mins * 60 * 1000,
             endTs: cur,
-            limit: 100,
+            limit: 50,
         });
         const reversed = resp.reverse();
         setLogs((prev) => [...reversed, ...prev]);
