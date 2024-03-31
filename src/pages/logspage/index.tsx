@@ -8,20 +8,22 @@ type Props = {
     setTimeDelta: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const PLogs = (props : Props) => {
-
-    const [sDate, eDate] = getFormatedDateTime(props.lastFetchedTime, props.timeDelta)
+const PLogs = (props: Props) => {
+    const [sDate] = getFormatedDateTime(props.lastFetchedTime + props.timeDelta * 60 * 1000, props.timeDelta);
+    const [, eDate] = getFormatedDateTime(new Date().getTime(), props.timeDelta);
     return (
         <>
-             <div className="flex items-center w-100 justify-end py-2">
-                    <p className="text-sm me-1">Showing logs for</p>
-                    <p className="text-sm">
-                        {sDate}
-                    </p>
-                    <img src="arrow-right.svg" alt="" className="mx-1 w-[10px]" />
-                    <p className="text-sm">{eDate}</p>
-                </div>
-            <CTerminal lastFetchedTime={props.lastFetchedTime} setLastFetchedTime={props.setLastFetchedTime} timeDelta={props.timeDelta}/>
+            <div className="flex items-center w-100 justify-end py-2">
+                <p className="text-sm me-1">Showing logs for</p>
+                <p className="text-sm">{sDate}</p>
+                <img src="arrow-right.svg" alt="" className="mx-1 w-[10px]" />
+                <p className="text-sm">{eDate}</p>
+            </div>
+            <CTerminal
+                lastFetchedTime={props.lastFetchedTime}
+                setLastFetchedTime={props.setLastFetchedTime}
+                timeDelta={props.timeDelta}
+            />
         </>
     );
 };

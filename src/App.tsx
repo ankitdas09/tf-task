@@ -19,6 +19,20 @@ function App() {
                 />
                 <Routes>
                     <Route
+                        path="/"
+                        element={
+                            <>
+                                <p className="font-bold">Go to:</p>
+                                <p className="text-blue-800 underline">
+                                    <a href="/metrics">/metrics</a>
+                                </p>
+                                <p className="text-blue-800 underline">
+                                    <a href="/logs">/logs</a>
+                                </p>
+                            </>
+                        }
+                    />
+                    <Route
                         path="/logs"
                         element={
                             <PLogs
@@ -32,7 +46,12 @@ function App() {
                     <Route
                         path="/metrics"
                         element={
-                            <PMetrics lastFetchedTime={lastFetchedTime} timeDelta={timeDelta} />
+                            <PMetrics
+                                lastFetchedTime={lastFetchedTime}
+                                timeDelta={timeDelta}
+                                setLastFetchedTime={setLastFetchedTime}
+                                setTimeDelta={setTimeDelta}
+                            />
                         }
                     />
                 </Routes>

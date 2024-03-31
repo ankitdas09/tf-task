@@ -14,6 +14,7 @@ const CNavBar = (props: Props) => {
     }
 
     function handleDeltaChange(mins: number) {
+        props.setLastFetchedTime(new Date().getTime())
         props.setTimeDelta(mins);
         handleDropdownToggle();
     }

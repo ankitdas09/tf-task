@@ -32,9 +32,17 @@ ChartJS.defaults.responsive = true;
 type Props = {
     lastFetchedTime: number;
     timeDelta: number;
+    setLastFetchedTime: React.Dispatch<React.SetStateAction<number>>;
+    setTimeDelta: React.Dispatch<React.SetStateAction<number>>;
 };
-
 function PMetrics(props: Props) {
+
+    // reset 
+    // useEffect(() => {
+    //     props.setLastFetchedTime(new Date().getTime())
+    //     props.setTimeDelta(5)
+    // }, [])
+
     type Dataset = {
         label: string;
         data: number[];

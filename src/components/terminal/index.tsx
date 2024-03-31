@@ -28,6 +28,7 @@ const CTerminal = (props: Props) => {
     }
 
     async function fetchLogs() {
+        setLoading(true)
         const cur = new Date(props.lastFetchedTime).getTime();
         const mins = props.timeDelta;
         props.setLastFetchedTime(cur - mins * 60 * 1000);
@@ -36,18 +37,17 @@ const CTerminal = (props: Props) => {
             endTs: cur,
             limit: 50,
         });
-        setLogChunks([resp].reverse());
+        const reversed = resp.reverse()
+        setLogChunks(prev => [reversed, ...prev]);
         scrollToBottomLog("instant");
         setLoading(false);
     }
 
     async function fetchPreviousLogs() {
         if (loading) return;
-        console.log(typeof logChunks[0][0])
         setLoading(true);
         const cur = new Date(props.lastFetchedTime).getTime();
         const mins = props.timeDelta;
-        props.setLastFetchedTime(cur - mins * 60 * 1000);
         const resp = await MimicLogs.fetchPreviousLogs({
             startTs: cur - mins * 60 * 1000,
             endTs: cur,

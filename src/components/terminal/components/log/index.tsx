@@ -2,13 +2,17 @@ import { Log } from "../..";
 import React from "react";
 
 type Props = {
-    log: Log,
-    index: number,
-    chunkId: number,
-}
+    log: Log;
+    index: number;
+    chunkId: number;
+};
 
 function isError() {
-    return Math.random() < 0.1
+    return Math.random() < 0.1;
+}
+
+function isSuccess() {
+    return Math.random() > 0.93;
 }
 
 const CLog = (props: Props) => {
@@ -16,6 +20,8 @@ const CLog = (props: Props) => {
     const month = _d.toLocaleString("default", { month: "long" });
     const date = _d.getDate();
     const time = _d.toISOString().split("T")[1].slice(0, -1);
+    const err = isError();
+    const scs = isSuccess();
     return (
         <div
             className="text-slate-300 text-xs flex items-start p-2 font-mono"
@@ -26,8 +32,8 @@ const CLog = (props: Props) => {
             <p className="inline-block text-[#5E7BAA] me-[9px]">{month}</p>
             <p className="inline-block text-[#5E7BAA] me-[9px]">{date}</p>
             <p className="inline-block text-[#5E7BAA] me-[9px]">{time}</p>
-            <p className="inline-block text-[#5E7BAA] me-[9px]">
-                {isError() ? "[error]" : "[info]"}
+            <p className={`inline-block me-[9px] ${err ? "text-[#F87171]" : scs ? "text-[#2DD4BF]" : "text-[#5E7BAA]"}`}>
+                {err ? "[error]" : scs ? "[success]" : "[info]"}
             </p>
 
             <p className="inline-block text-[#A8C3E8] me-[9px]">{props.log.message}</p>
