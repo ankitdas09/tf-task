@@ -7,21 +7,19 @@ type Props = {
     chunkId: number;
 };
 
-function isError() {
-    return Math.random() < 0.1;
-}
+// function isError() {
+//     return Math.random() < 0.1;
+// }
 
-function isSuccess() {
-    return Math.random() > 0.93;
-}
+// function isSuccess() {
+//     return Math.random() > 0.93;
+// }
 
 const CLog = (props: Props) => {
     const _d = new Date(props.log.timestamp);
     const month = _d.toLocaleString("default", { month: "long" });
     const date = _d.getDate();
     const time = _d.toISOString().split("T")[1].slice(0, -1);
-    const err = isError();
-    const scs = isSuccess();
     return (
         <div
             className="text-slate-300 text-xs flex items-start p-2 font-mono"
