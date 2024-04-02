@@ -9,7 +9,7 @@ type Props = {
 
 const CLogChunk = (props: Props) => {
     // useEffect(() => {
-        // console.log(props.chunkId, "rerendered")
+    //     console.log(props.chunkId, "rerendered")
     // }, [])
     const memoizedLogs = useMemo(() => {
         return (

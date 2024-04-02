@@ -32,8 +32,9 @@ const CLog = (props: Props) => {
             <p className="inline-block text-[#5E7BAA] me-[9px]">{month}</p>
             <p className="inline-block text-[#5E7BAA] me-[9px]">{date}</p>
             <p className="inline-block text-[#5E7BAA] me-[9px]">{time}</p>
-            <p className={`inline-block me-[9px] ${err ? "text-[#F87171]" : scs ? "text-[#2DD4BF]" : "text-[#5E7BAA]"}`}>
-                {err ? "[error]" : scs ? "[success]" : "[info]"}
+            <p className={`inline-block me-[9px] "text-[#5E7BAA]`}>
+                {/* {err ? "[error]" : scs ? "[success]" : "[info]"} */}
+                [info]
             </p>
 
             <p className="inline-block text-[#A8C3E8] me-[9px]">{props.log.message}</p>
