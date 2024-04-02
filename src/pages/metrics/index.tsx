@@ -16,6 +16,7 @@ import {
 import { Line } from "react-chartjs-2";
 import { MimicMetrics } from "../../api-mimic";
 import { getChartOptions, getFormatedDateTime } from "../../utils/utils";
+import LineGraph from "./components/linegraph";
 
 ChartJS.register(
     CategoryScale,
@@ -142,6 +143,7 @@ function PMetrics(props: Props) {
     useEffect(() => {
         setData([]);
         fetchMetrics();
+        console.log(JSON.stringify(data[0]))
     }, [props.timeDelta]);
 
     const [sDate, eDate] = getFormatedDateTime(props.lastFetchedTime, props.timeDelta);
@@ -193,11 +195,9 @@ function PMetrics(props: Props) {
                                     />
                                 </div>
                                 <div className="w-6/12 bg-white p-3 m-2 rounded-lg border-[1px] border-[#CEE0F8]">
-                                    <Line
+                                    <LineGraph
                                         data={data[3]}
-                                        // @ts-expect-error option issue, needs to be fixed, still works
-                                        options={getChartOptions("Disk IOPS")}
-                                        redraw={true}
+                                        title="Disk IOPS"
                                     />
                                 </div>
                             </div>
